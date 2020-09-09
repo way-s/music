@@ -22,9 +22,9 @@ import javax.servlet.http.HttpSession;
  */
 @Controller
 @RequestMapping("login/")
-public class LoginController {
+public class AdminController {
 
-    private static final Logger log = LoggerFactory.getLogger(LoginController.class);
+    private static final Logger log = LoggerFactory.getLogger(AdminController.class);
 
     @Autowired
     private AdminService adminService;

@@ -23,7 +23,7 @@ public class SongList implements Serializable {
 
     @Id
     @Column(name = "id")
-    private Long id;
+    private Integer id;
 
     /**
      * 标题
@@ -49,12 +49,11 @@ public class SongList implements Serializable {
     @Column(name = "style")
     private String style;
 
-
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

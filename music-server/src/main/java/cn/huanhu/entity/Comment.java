@@ -24,7 +24,7 @@ public class Comment implements Serializable {
 
     @Id
     @Column(name = "id")
-    private Long id;
+    private Integer id;
 
     /**
      * 用户id
@@ -68,12 +68,11 @@ public class Comment implements Serializable {
     @Column(name = "up")
     private Long up;
 
-
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

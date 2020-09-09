@@ -41,7 +41,7 @@ public class Rank implements Serializable {
      * 评分
      */
     @Column(name = "score")
-    private Long score;
+    private Integer score;
 
 
     public Long getId() {
@@ -68,12 +68,11 @@ public class Rank implements Serializable {
         this.consumerId = consumerId;
     }
 
-    public Long getScore() {
+    public Integer getScore() {
         return score;
     }
 
-    public void setScore(Long score) {
+    public void setScore(Integer score) {
         this.score = score;
     }
-
 }

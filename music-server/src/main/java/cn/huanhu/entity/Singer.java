@@ -24,7 +24,7 @@ public class Singer implements Serializable {
 
     @Id
     @Column(name = "id")
-    private Long id;
+    private Integer id;
 
     /**
      * 歌手姓名
@@ -62,12 +62,11 @@ public class Singer implements Serializable {
     @Column(name = "introduction")
     private String introduction;
 
-
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -119,4 +118,16 @@ public class Singer implements Serializable {
         this.introduction = introduction;
     }
 
+    @Override
+    public String toString() {
+        return "Singer{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", sex=" + sex +
+                ", pic='" + pic + '\'' +
+                ", birth=" + birth +
+                ", location='" + location + '\'' +
+                ", introduction='" + introduction + '\'' +
+                '}';
+    }
 }

@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.huanhu.dao.SongDao">
+
+    <resultMap type="cn.huanhu.entity.Song" id="SongMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="singerId" column="singer_id" jdbcType="INTEGER"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="introduction" column="introduction" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="pic" column="pic" jdbcType="VARCHAR"/>
+        <result property="url" column="url" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <resultMap id="ResultMapWithBLOBs" type="cn.huanhu.entity.Song" extends="SongMap">
+        <result property="lyric" column="lyric" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="song_list">
+        id, singer_id, name, introduction, create_time, update_time, pic, lyric, url
+    </sql>
+
+    <sql id="Blob_Column_List">
+        lyric
+    </sql>
+    <!--查询单个-->
+    <select id="songOfId" resultMap="SongMap">
+        select
+        id, singer_id, name, introduction, create_time, update_time, pic, lyric, url
+        from music.song
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+<!--    <select id="queryAllByLimit" resultMap="SongMap">-->
+<!--        select-->
+<!--        id, singer_id, name, introduction, create_time, update_time, pic, lyric, url-->
+<!--        from music.song-->
+<!--        limit #{offset}, #{limit}-->
+<!--    </select>-->
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAllSong" resultMap="SongMap">
+        select
+        id, singer_id, name, introduction, create_time, update_time, pic, lyric, url
+        from music.song
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="singerId != null">
+                and singer_id = #{singerId}
+            </if>
+            <if test="name != null and name != ''">
+                and name = #{name}
+            </if>
+            <if test="introduction != null and introduction != ''">
+                and introduction = #{introduction}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="pic != null and pic != ''">
+                and pic = #{pic}
+            </if>
+            <if test="lyric != null and lyric != ''">
+                and lyric = #{lyric}
+            </if>
+            <if test="url != null and url != ''">
+                and url = #{url}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into music.song(singer_id, name, introduction, create_time, update_time, pic, lyric, url)
+        values (#{singerId}, #{name}, #{introduction}, #{createTime}, #{updateTime}, #{pic}, #{lyric}, #{url})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update music.song
+        <set>
+            <if test="singerId != null">
+                singer_id = #{singerId},
+            </if>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="introduction != null and introduction != ''">
+                introduction = #{introduction},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="pic != null and pic != ''">
+                pic = #{pic},
+            </if>
+            <if test="lyric != null and lyric != ''">
+                lyric = #{lyric},
+            </if>
+            <if test="url != null and url != ''">
+                url = #{url},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from music.song
+        where id = #{id}
+    </delete>
+
+    <!--查询单个-->
+    <select id="queryByPrimaryKey" parameterType="java.lang.Integer" resultMap="SongMap">
+        select
+        <include refid="song_list"/>
+        from music.song
+        where id = #{id}
+    </select>
+
+    <!--查询所有歌曲-->
+    <select id="allSong" resultMap="SongMap">
+        select
+        <include refid="song_list"/>
+        from music.song
+    </select>
+
+    <!--根据歌曲名字模糊查询列表-->
+    <select id="songListOfName" resultMap="SongMap" parameterType="java.lang.String">
+        select
+        <include refid="song_list"/>
+        from music.song
+        where name like #{name}
+    </select>
+
+    <!--根据歌手id查询-->
+    <select id="queryBySingerId" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer">
+        select
+        <include refid="Blob_Column_List"/>
+        from music.song
+        where singer_id = #{singerId}
+    </select>
+</mapper>

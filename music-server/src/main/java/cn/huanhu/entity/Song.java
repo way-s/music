@@ -24,13 +24,13 @@ public class Song implements Serializable {
 
     @Id
     @Column(name = "id")
-    private Long id;
+    private Integer id;
 
     /**
      * 歌手id
      */
     @Column(name = "singer_id")
-    private Long singerId;
+    private Integer singerId;
 
     /**
      * 歌名
@@ -74,20 +74,19 @@ public class Song implements Serializable {
     @Column(name = "url")
     private String url;
 
-
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public Long getSingerId() {
+    public Integer getSingerId() {
         return singerId;
     }
 
-    public void setSingerId(Long singerId) {
+    public void setSingerId(Integer singerId) {
         this.singerId = singerId;
     }
 

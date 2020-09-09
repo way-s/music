@@ -78,60 +78,55 @@
         select
         <include refid="singer_list"/>
         from music.singer
-        where name like #{sex}
+        where sex = #{sex}
     </select>
 
     <!--新增所有列-->
-    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        -- insert into music.singer(name, sex, pic, birth, location, introduction)
-        -- values (#{name}, #{sex}, #{pic}, #{birth}, #{location}, #{introduction})
-        insert into music.singer
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="id !=null">
-                id,
-            </if>
-            <if test="name !=null">
-                name,
-            </if>
-            <if test="sex !=null">
-                sex,
-            </if>
-            <if test="pic !=null">
-                pic,
-            </if>
-            <if test="birth !=null">
-                birth,
-            </if>
-            <if test="location!=null">
-                location,
-            </if>
-            <if test="introduction !=null">
-                introduction,
-            </if>
-        </trim>
-        <trim prefix=" values (" suffix=")" suffixOverrides=",">
-            <if test="id !=null">
-                #{id},
-            </if>
-            <if test="name != null and name != ''">
-                #{name},
-            </if>
-            <if test="sex != null">
-                #{sex},
-            </if>
-            <if test="pic != null and pic != ''">
-                #{pic},
-            </if>
-            <if test="birth != null">
-                #{birth},
-            </if>
-            <if test="location != null and location != ''">
-                #{location},
-            </if>
-            <if test="introduction != null and introduction != ''">
-                #{introduction},
-            </if>
-        </trim>
+    <insert id="insert" parameterType="cn.huanhu.entity.Singer" >
+        insert into music.singer(name, sex, pic, birth, location, introduction)
+        values (#{name}, #{sex}, #{pic}, #{birth}, #{location}, #{introduction})
+<!--        insert into music.singer-->
+<!--        <trim prefix="(" suffix=")" suffixOverrides=",">-->
+<!--            <if test="name !=null">-->
+<!--                name,-->
+<!--            </if>-->
+<!--            <if test="sex !=null">-->
+<!--                sex,-->
+<!--            </if>-->
+<!--            <if test="pic !=null">-->
+<!--                pic,-->
+<!--            </if>-->
+<!--            <if test="birth !=null">-->
+<!--                birth,-->
+<!--            </if>-->
+<!--            <if test="location!=null">-->
+<!--                location,-->
+<!--            </if>-->
+<!--            <if test="introduction !=null">-->
+<!--                introduction,-->
+<!--            </if>-->
+<!--        </trim>-->
+<!--        <trim prefix=" values (" suffix=")" suffixOverrides=",">-->
+<!--            <if test="name != null and name != ''">-->
+<!--                #{name},-->
+<!--            </if>-->
+<!--            <if test="sex != null">-->
+<!--                #{sex},-->
+<!--            </if>-->
+<!--            <if test="pic != null and pic != ''">-->
+<!--                #{pic},-->
+<!--            </if>-->
+<!--            <if test="birth != null">-->
+<!--                #{birth},-->
+<!--            </if>-->
+<!--            <if test="location != null and location != ''">-->
+<!--                #{location},-->
+<!--            </if>-->
+<!--            <if test="introduction != null and introduction != ''">-->
+<!--                #{introduction},-->
+<!--            </if>-->
+<!--        </trim>-->
+
     </insert>
 
     <!--通过主键修改数据-->

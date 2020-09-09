@@ -24,7 +24,7 @@ public class Consumer implements Serializable {
 
     @Id
     @Column(name = "id")
-    private Long id;
+    private Integer id;
 
     /**
      * 用户名
@@ -92,12 +92,11 @@ public class Consumer implements Serializable {
     @Column(name = "update_time")
     private Date updateTime;
 
-
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

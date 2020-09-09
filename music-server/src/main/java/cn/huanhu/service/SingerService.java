@@ -2,6 +2,8 @@ package cn.huanhu.service;
 
 import cn.huanhu.dao.SingerDao;
 import cn.huanhu.entity.Singer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,8 @@ import java.util.List;
 @Service
 public class SingerService {
 
+    private static final Logger log = LoggerFactory.getLogger(SingerService.class);
+
     @Autowired
     private SingerDao singerDao;
 
@@ -25,6 +29,7 @@ public class SingerService {
      * @return true or false
      */
     public boolean insert(Singer singer){
+        log.info(singer.toString());
         return singerDao.insert(singer)>0;
     }
 
