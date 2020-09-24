@@ -78,4 +78,10 @@ public interface ConsumerDao {
      */
     int verifyPassword(@Param("username")String username ,@Param("password")String password);
 
+    /**
+     * 查询旧图片地址
+     * @param id id
+     * @return string
+     */
+    public String queryOldPic(Integer id);
 }

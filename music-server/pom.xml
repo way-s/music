@@ -16,6 +16,7 @@
 
     <properties>
         <java.version>1.8</java.version>
+        <demo.images.prefix>X</demo.images.prefix>
     </properties>
 
     <dependencies>
@@ -106,6 +107,41 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>1.0.0</version>
+                <configuration>
+                    <!--指定生成的镜像名 docker.images.prefix 镜像名称 project.artifactId 当前项目的名称-->
+                    <imageName>${demo.images.prefix}/${project.artifactId}</imageName>
+                    <!--指定标签-->
+                    <imageTags>
+                        <imageTag>latest</imageTag>
+                    </imageTags>
+                    <!-- 基础镜像jdk1.8 -->
+                    <baseImage>java</baseImage>
+                    <!-- 制作者信息 -->
+                    <maintainer>huanhu</maintainer>
+                    <!--切换到/ROOT目录一 -->
+                    <workdir>/ROOT</workdir>
+                    <entryPoint>["java","-jar","${project.build.finalName}.jar"]</entryPoint>
+                    <!-- 指定 Dockerfile 路径-->
+                    <dockerDirectory>${project.basedir}/src/main/docker</dockerDirectory>
+
+                    <!--指定远程 docker api地址-->
+                    <dockerHost>http://XXX.XXX.XXX.XXX:2375</dockerHost>
+                    <!-- 这里是复制 jar 包到 docker 容器指定目录配置 -->
+                    <resources>
+                        <resource>
+                            <targetPath>/ROOT</targetPath>
+                            <!--jar 包所在的路径  此处配置的 ${project.build.directory}即对应 target 目录-->
+                            <directory>${project.build.directory}</directory>
+                            <!-- 用于指定需要复制的文件，${project.build.finalName}.jar指的是打包后的jar包文件名称　-->
+                            <include>${project.build.finalName}.jar</include>
+                        </resource>
+                    </resources>
+                </configuration>
             </plugin>
         </plugins>
     </build>

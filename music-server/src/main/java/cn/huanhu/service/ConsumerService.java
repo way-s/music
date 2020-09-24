@@ -85,4 +85,13 @@ public class ConsumerService{
     public boolean verityPassword(String username,String password){
         return consumerDao.verifyPassword(username,password)>0;
     }
+
+    /**
+     * 查询旧图片地址
+     * @param id id
+     * @return string
+     */
+    public String queryOldPic(Integer id){
+        return consumerDao.queryOldPic(id);
+    }
 }

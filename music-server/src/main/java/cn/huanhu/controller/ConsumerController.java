@@ -250,25 +250,41 @@ public class ConsumerController {
             json.put("msg", "文件上传失败！");
             return json;
         }
+        // 文件名= 当前时间（精确到毫秒）+原来的文件名 避免上传的文件（图片）重复 如果上传了两个文件 将原来的文件覆盖
         String fileName = System.currentTimeMillis() + upFile.getOriginalFilename();
-        String filePath = System.getProperty("user.dir") + System.getProperty("file.separator") + "avatorImages";
+        // 获取文件路径
+        String filePath = "E:/music/img/CHP/" + id + "/";
+        // 如果文件路径不存在，添加文件路径
         File file1 = new File(filePath);
         if (!file1.exists()) {
-            file1.mkdir();
+            file1.mkdirs();
         }
+        // 实际的文件地址
+        File dest = new File(filePath + fileName);
+        // 存储到数据库中的相对文件地址
+        String storeUrlPath = "/CHP/" + id+"/"+ fileName;
 
-        File dest = new File(filePath + System.getProperty("file.separator") + fileName);
-        String storeAvatorPath = "/avatorImages/" + fileName;
         try {
             upFile.transferTo(dest);
             Consumer consumer = new Consumer();
             consumer.setId(id);
-            consumer.setAvator(storeAvatorPath);
+            consumer.setAvator(storeUrlPath);
+            // 查询旧图片地址
+            String fileAddr = "E:/music/img/";
+            String oldPic = consumerService.queryOldPic(id);
+            log.info("song/img/update->" + "\n" + "filename->" + fileName + "\n" + "filePath->" + filePath + "\n" + "dest->"
+                    + dest + "\n" + "storeUrlPath->" + storeUrlPath + "\n" + "oldPic->" + oldPic + "\t" + fileAddr + oldPic);
+            File oldFile = new File(fileAddr + oldPic);
+            //删除旧图片
+            if (oldFile.exists()) {
+                oldFile.delete();
+            }
+
             // 更新用户头像
-            boolean res = consumerService.update(consumer);
-            if (res) {
+            boolean result = consumerService.update(consumer);
+            if (result) {
                 json.put("code", 1);
-                json.put("avator", storeAvatorPath);
+                json.put("avator", storeUrlPath);
                 json.put("msg", "上传成功");
             } else {
                 json.put("code", 0);

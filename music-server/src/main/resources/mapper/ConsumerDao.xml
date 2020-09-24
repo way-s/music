@@ -217,4 +217,11 @@
         FROM consumer
         where username = #{username} and password = #{password} ;
     </select>
+
+    <!--查询旧图片地址-->
+    <select id="queryOldPic" resultType="java.lang.String" parameterType="java.lang.Integer">
+        select avator
+        from music.consumer
+        where id = #{id}
+    </select>
 </mapper>
