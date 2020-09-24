@@ -23,4 +23,5 @@ public class WebController {
     public @ResponseBody Admin queryById() {
         return adminService.queryById(1);
     }
+
 }

@@ -30,19 +30,19 @@ public class Comment implements Serializable {
      * 用户id
      */
     @Column(name = "user_id")
-    private Long userId;
+    private Integer userId;
 
     /**
      * 歌曲id
      */
     @Column(name = "song_id")
-    private Long songId;
+    private Integer songId;
 
     /**
      * 歌曲列表id
      */
     @Column(name = "song_list_id")
-    private Long songListId;
+    private Integer songListId;
 
     /**
      * 评论内容
@@ -60,13 +60,13 @@ public class Comment implements Serializable {
      * 类型
      */
     @Column(name = "type")
-    private Boolean type;
+    private Byte type;
 
     /**
      * 评论点赞数
      */
     @Column(name = "up")
-    private Long up;
+    private Integer up;
 
     public Integer getId() {
         return id;
@@ -76,27 +76,27 @@ public class Comment implements Serializable {
         this.id = id;
     }
 
-    public Long getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
-    public Long getSongId() {
+    public Integer getSongId() {
         return songId;
     }
 
-    public void setSongId(Long songId) {
+    public void setSongId(Integer songId) {
         this.songId = songId;
     }
 
-    public Long getSongListId() {
+    public Integer getSongListId() {
         return songListId;
     }
 
-    public void setSongListId(Long songListId) {
+    public void setSongListId(Integer songListId) {
         this.songListId = songListId;
     }
 
@@ -116,20 +116,19 @@ public class Comment implements Serializable {
         this.createTime = createTime;
     }
 
-    public Boolean getType() {
+    public Byte getType() {
         return type;
     }
 
-    public void setType(Boolean type) {
+    public void setType(Byte type) {
         this.type = type;
     }
 
-    public Long getUp() {
+    public Integer getUp() {
         return up;
     }
 
-    public void setUp(Long up) {
+    public void setUp(Integer up) {
         this.up = up;
     }
-
 }

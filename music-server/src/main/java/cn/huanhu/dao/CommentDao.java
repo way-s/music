@@ -65,4 +65,18 @@ public interface CommentDao {
      */
     int deleteById(Integer id);
 
+    /**
+     * 获得指定歌单ID的评论列表
+     * @param songListId songListId
+     * @return comment 实体
+     */
+    List<Comment> queryBySongListId(@Param("songListId")Integer songListId);
+
+    /**
+     * 获得指定歌曲ID的评论列表
+     * @param songId songId
+     * @return comment 实体
+     */
+    List<Comment> queryBySongId(@Param("songId")Integer songId);
+
 }

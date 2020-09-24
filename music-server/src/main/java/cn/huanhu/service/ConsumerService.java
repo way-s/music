@@ -31,12 +31,11 @@ public class ConsumerService{
     /**
      * 查询多条数据
      *
-     * @param offset 查询起始位置
-     * @param limit  查询条数
+     * @param username username
      * @return 对象列表
      */
-    public List<Consumer> queryAllByLimit(int offset, int limit) {
-        return this.consumerDao.queryAllByLimit(offset, limit);
+    public List<Consumer> queryByName(String username) {
+        return this.consumerDao.queryByName(username);
     }
 
     /**
@@ -45,9 +44,8 @@ public class ConsumerService{
      * @param consumer 实例对象
      * @return 实例对象
      */
-    public Consumer insert(Consumer consumer) {
-        this.consumerDao.insert(consumer);
-        return consumer;
+    public boolean insert(Consumer consumer) {
+        return this.consumerDao.insert(consumer)>0;
     }
 
     /**
@@ -56,9 +54,8 @@ public class ConsumerService{
      * @param consumer 实例对象
      * @return 实例对象
      */
-    public Consumer update(Consumer consumer) {
-        this.consumerDao.update(consumer);
-        return this.queryById(consumer.getId());
+    public Boolean update(Consumer consumer) {
+        return this.consumerDao.update(consumer)>0;
     }
 
     /**
@@ -69,5 +66,23 @@ public class ConsumerService{
      */
     public boolean deleteById(Integer id) {
         return this.consumerDao.deleteById(id) > 0;
+    }
+
+    /**
+     * 查询所有用户
+     * @return consumer
+     */
+    public List<Consumer> allUser(){
+        return consumerDao.allUser();
+    }
+
+    /**
+     * 登录验证
+     * @param username username
+     * @param password password
+     * @return 1 0
+     */
+    public boolean verityPassword(String username,String password){
+        return consumerDao.verifyPassword(username,password)>0;
     }
 }

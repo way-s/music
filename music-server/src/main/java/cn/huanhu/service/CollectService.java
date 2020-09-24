@@ -15,6 +15,7 @@ import java.util.List;
  */
 @Service("collectService")
 public class CollectService {
+
     @Resource
     private CollectDao collectDao;
 
@@ -31,12 +32,11 @@ public class CollectService {
     /**
      * 查询多条数据
      *
-     * @param offset 查询起始位置
-     * @param limit  查询条数
+     * @param userId 用户id
      * @return 对象列表
      */
-    public List<Collect> queryAllByLimit(int offset, int limit) {
-        return this.collectDao.queryAllByLimit(offset, limit);
+    public List<Collect> collectionOfUser(Integer userId) {
+        return this.collectDao.queryByUserId(userId);
     }
 
     /**
@@ -69,5 +69,24 @@ public class CollectService {
      */
     public boolean deleteById(Integer id) {
         return this.collectDao.deleteById(id) > 0;
+    }
+
+    /**
+     * 根据用户ID和歌曲id删除收藏列表
+     *
+     * @param userId 用户id
+     * @param songId 歌曲id
+     * @return 是否成功
+     */
+    public boolean deleteCollect(Integer userId,Integer songId) {
+        return this.collectDao.deleteCollect(userId,songId) > 0;
+    }
+
+    /**
+     * 返回所有用户收藏列表
+     * @return json
+     */
+    public List<Collect> queryAllCollect(){
+        return this.collectDao.queryAllCollect();
     }
 }

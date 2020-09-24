@@ -23,43 +23,41 @@ public class ListSong implements Serializable {
 
     @Id
     @Column(name = "id")
-    private Long id;
+    private Integer id;
 
     /**
      * 歌曲id
      */
     @Column(name = "song_id")
-    private Long songId;
+    private Integer songId;
 
     /**
      * 歌单id
      */
     @Column(name = "song_list_id")
-    private Long songListId;
+    private Integer songListId;
 
-
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public Long getSongId() {
+    public Integer getSongId() {
         return songId;
     }
 
-    public void setSongId(Long songId) {
+    public void setSongId(Integer songId) {
         this.songId = songId;
     }
 
-    public Long getSongListId() {
+    public Integer getSongListId() {
         return songListId;
     }
 
-    public void setSongListId(Long songListId) {
+    public void setSongListId(Integer songListId) {
         this.songListId = songListId;
     }
-
 }

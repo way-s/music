@@ -54,11 +54,10 @@ public class CommentService {
      * 修改数据
      *
      * @param comment 实例对象
-     * @return 实例对象
+     * @return 1 0
      */
-    public Comment update(Comment comment) {
-        this.commentDao.update(comment);
-        return this.queryById(comment.getId());
+    public boolean update(Comment comment) {
+        return this.commentDao.update(comment) > 0;
     }
 
     /**
@@ -70,4 +69,26 @@ public class CommentService {
     public boolean deleteById(Integer id) {
         return this.commentDao.deleteById(id) > 0;
     }
+
+    /**
+     * 获得指定歌单ID的评论列表
+     *
+     * @param songListId 歌单列表id
+     * @return comment实体
+     */
+    public List<Comment> commentOfSongListId(Integer songListId) {
+        return this.commentDao.queryBySongListId(songListId);
+    }
+
+    /**
+     * 获得指定歌曲ID的评论列表
+     *
+     * @param songId 歌曲列表id
+     * @return comment实体
+     */
+    public List<Comment> commentOfSongId(Integer songId) {
+        return this.commentDao.queryBySongId(songId);
+    }
+
+
 }

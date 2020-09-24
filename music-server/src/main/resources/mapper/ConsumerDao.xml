@@ -26,11 +26,11 @@
     </select>
 
     <!--查询指定行数据-->
-    <select id="queryAllByLimit" resultMap="ConsumerMap">
+    <select id="queryByName" resultMap="ConsumerMap">
         select
         id, username, password, sex, phone_num, email, birth, introduction, location, avator, create_time, update_time
         from music.consumer
-        limit #{offset}, #{limit}
+        where name = #{name}
     </select>
 
     <!--通过实体作为筛选条件查询-->
@@ -78,12 +78,84 @@
         </where>
     </select>
 
+    <!--insert into music.consumer(username, password, sex, phone_num, email, birth, introduction, location, avator,
+            create_time, update_time)
+            values (#{username}, #{password}, #{sex}, #{phoneNum}, #{email}, #{birth}, #{introduction}, #{location},
+            #{avator}, #{createTime}, #{updateTime})-->
+
     <!--新增所有列-->
-    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into music.consumer(username, password, sex, phone_num, email, birth, introduction, location, avator,
-        create_time, update_time)
-        values (#{username}, #{password}, #{sex}, #{phoneNum}, #{email}, #{birth}, #{introduction}, #{location},
-        #{avator}, #{createTime}, #{updateTime})
+    <insert id="insert"  parameterType="cn.huanhu.entity.Consumer" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        insert into music.consumer
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="username != null and username != ''">
+                username,
+            </if>
+            <if test="password != null and password != ''">
+                password,
+            </if>
+            <if test="sex != null">
+                sex,
+            </if>
+            <if test="phoneNum != null and phoneNum != ''">
+                phone_num,
+            </if>
+            <if test="email != null and email != ''">
+                email,
+            </if>
+            <if test="birth != null">
+                birth,
+            </if>
+            <if test="introduction != null and introduction != ''">
+                introduction,
+            </if>
+            <if test="location != null and location != ''">
+                location,
+            </if>
+            <if test="avator != null and avator != ''">
+                avator,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values(" suffix=")" suffixOverrides="," >
+            <if test="username != null and username != ''">
+                #{username},
+            </if>
+            <if test="password != null and password != ''">
+                #{password},
+            </if>
+            <if test="sex != null">
+                #{sex},
+            </if>
+            <if test="phoneNum != null and phoneNum != ''">
+                #{phoneNum},
+            </if>
+            <if test="email != null and email != ''">
+                #{email},
+            </if>
+            <if test="birth != null">
+                #{birth},
+            </if>
+            <if test="introduction != null and introduction != ''">
+                #{introduction},
+            </if>
+            <if test="location != null and location != ''">
+                #{location},
+            </if>
+            <if test="avator != null and avator != ''">
+                 #{avator},
+            </if>
+            <if test="createTime != null">
+                #{createTime},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime},
+            </if>
+        </trim>
     </insert>
 
     <!--通过主键修改数据-->
@@ -132,4 +204,17 @@
         delete from music.consumer where id = #{id}
     </delete>
 
+    <!--查询所有用户-->
+    <select id="allUser" resultMap="ConsumerMap">
+        select
+        id, username, password, sex, phone_num, email, birth, introduction, location, avator, create_time, update_time
+        from music.consumer
+    </select>
+
+    <!--登录效验-->
+    <select id="verifyPassword" resultType="java.lang.Integer">
+        SELECT count(*)
+        FROM consumer
+        where username = #{username} and password = #{password} ;
+    </select>
 </mapper>

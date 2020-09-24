@@ -31,12 +31,10 @@ public class ListSongService {
     /**
      * 查询多条数据
      *
-     * @param offset 查询起始位置
-     * @param limit  查询条数
      * @return 对象列表
      */
-    public List<ListSong> queryAllByLimit(int offset, int limit) {
-        return this.listSongDao.queryAllByLimit(offset, limit);
+    public List<ListSong> allListSong() {
+        return this.listSongDao.queryAllListSong();
     }
 
     /**
@@ -56,18 +54,36 @@ public class ListSongService {
      * @param listSong 实例对象
      * @return 实例对象
      */
-//    public ListSong update(ListSong listSong) {
-//        this.listSongDao.update(listSong);
-//        return this.queryById(listSong.getId());
-//    }
+    public ListSong update(ListSong listSong) {
+        this.listSongDao.update(listSong);
+        return this.queryById(listSong.getId());
+    }
 
     /**
      * 通过主键删除数据
      *
-     * @param id 主键
+     * @param songId 歌曲Id
      * @return 是否成功
      */
-    public boolean deleteById(Integer id) {
-        return this.listSongDao.deleteById(id) > 0;
+    public boolean deleteById(Integer songId) {
+        return this.listSongDao.deleteById(songId) > 0;
+    }
+
+    /**
+     *  添加列表歌曲
+     * @param listSong listSong
+     * @return 1 0
+     */
+    public boolean addListSong(ListSong listSong){
+        return this.listSongDao.addListSong(listSong)>0;
+    }
+
+    /**
+     * 返回歌单里指定歌单Id的歌曲
+     * @param songListId songListId
+     * @return ListSong实体对象
+     */
+    public List<ListSong> queryListSongById(Integer songListId){
+        return listSongDao.queryListSongById(songListId);
     }
 }

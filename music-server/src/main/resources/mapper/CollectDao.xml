@@ -19,12 +19,12 @@
         where id = #{id}
     </select>
 
-    <!--查询指定行数据-->
-    <select id="queryAllByLimit" resultMap="CollectMap">
+    <!--返回的指定用户ID收藏列表-->
+    <select id="queryByUserId" resultMap="CollectMap">
         select
         id, user_id, type, song_id, song_list_id, create_time
         from music.collect
-        limit #{offset}, #{limit}
+        where user_id = #{userId}
     </select>
 
     <!--通过实体作为筛选条件查询-->
@@ -52,6 +52,13 @@
                 and create_time = #{createTime}
             </if>
         </where>
+    </select>
+
+    <!--返回所有的实体作-->
+    <select id="queryAllCollect" resultMap="CollectMap">
+        select
+        id, user_id, type, song_id, song_list_id, create_time
+        from music.collect
     </select>
 
     <!--新增所有列-->
@@ -85,7 +92,14 @@
 
     <!--通过主键删除-->
     <delete id="deleteById">
-        delete from music.collect where id = #{id}
+        delete from music.collect
+        where id = #{id}
+    </delete>
+
+    <!--根据用户ID和歌曲id删除收藏列表-->
+    <delete id="deleteCollect">
+        delete from music.collect
+        where user_id = #{userId} and songId = #{songId}
     </delete>
 
 </mapper>

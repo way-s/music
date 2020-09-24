@@ -29,7 +29,6 @@ public class SongService {
      * @return true or false
      */
     public boolean insert(Song song){
-        log.info(song.toString());
         return songDao.insert(song)>0;
     }
 
@@ -47,17 +46,17 @@ public class SongService {
      * @param id primaryKey id
      * @return true or false
      */
-    public boolean deleteById(Integer id){
-        return songDao.deleteById(id)>0;
+    public boolean deleteById(Integer id , Integer singerId){
+        return songDao.deleteById(id,singerId)>0;
     }
 
     /**
-     * 根据主键查询整个对象
-     * @param id id
-     * @return song
+     * 根据id 更新歌曲图片
+     * @param song song
+     * @return 1 0
      */
-    public Song queryByPrimaryKey(Integer id){
-        return songDao.queryByPrimaryKey(id);
+    public boolean updateSongPic(Song song){
+        return songDao.updateSongPic(song)>0;
     }
 
     /**
@@ -102,5 +101,23 @@ public class SongService {
      */
     public List<Song> songOfSingerName(Song song){
         return songDao.queryAllSong(song);
+    }
+
+    /**
+     * 查询旧图片地址
+     * @param id id
+     * @return string
+     */
+    public String queryOldPic(Integer id){
+        return songDao.queryOldPic(id);
+    }
+
+    /**
+     * 查询旧歌曲地址
+     * @param id id
+     * @return string
+     */
+    public String queryOldUrl(Integer id){
+        return songDao.queryOldUrl(id);
     }
 }

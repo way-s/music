@@ -24,13 +24,12 @@ public interface ConsumerDao {
     Consumer queryById(Integer id);
 
     /**
-     * 查询指定行数据
+     * 根据名字查询
      *
-     * @param offset 查询起始位置
-     * @param limit  查询条数
-     * @return 对象列表
+     *
+     * @param username@return 对象列表
      */
-    List<Consumer> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit);
+    List<Consumer> queryByName(@Param("username")String username );
 
 
     /**
@@ -64,5 +63,19 @@ public interface ConsumerDao {
      * @return 影响行数
      */
     int deleteById(Integer id);
+
+    /**
+     * 查询所有用户
+     * @return consumer
+     */
+    List<Consumer> allUser();
+
+    /**
+     *登录验证
+     * @param username username
+     * @param password password
+     * @return 1 0
+     */
+    int verifyPassword(@Param("username")String username ,@Param("password")String password);
 
 }

@@ -106,7 +106,7 @@
 <!--                introduction,-->
 <!--            </if>-->
 <!--        </trim>-->
-<!--        <trim prefix=" values (" suffix=")" suffixOverrides=",">-->
+<!--        <trim prefix="values (" suffix=")" suffixOverrides=",">-->
 <!--            <if test="name != null and name != ''">-->
 <!--                #{name},-->
 <!--            </if>-->
@@ -126,7 +126,6 @@
 <!--                #{introduction},-->
 <!--            </if>-->
 <!--        </trim>-->
-
     </insert>
 
     <!--通过主键修改数据-->
@@ -160,5 +159,12 @@
         delete from music.singer
         where id = #{id}
     </delete>
+
+    <!--查询旧图片地址-->
+    <select id="queryOldPic" resultType="java.lang.String">
+        select pic
+        from music.singer
+        where id = #{id}
+    </select>
 
 </mapper>

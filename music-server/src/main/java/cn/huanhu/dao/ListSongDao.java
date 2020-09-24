@@ -2,7 +2,6 @@ package cn.huanhu.dao;
 
 import cn.huanhu.entity.ListSong;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -24,13 +23,11 @@ public interface ListSongDao {
     ListSong queryById(Integer id);
 
     /**
-     * 查询指定行数据
+     * 查询歌单包含的所有歌曲
      *
-     * @param offset 查询起始位置
-     * @param limit  查询条数
      * @return 对象列表
      */
-    List<ListSong> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit);
+    List<ListSong> queryAllListSong();
 
 
     /**
@@ -60,9 +57,23 @@ public interface ListSongDao {
     /**
      * 通过主键删除数据
      *
-     * @param id 主键
+     * @param songId 歌曲id
      * @return 影响行数
      */
-    int deleteById(Integer id);
+    int deleteById(Integer songId);
 
+    /**
+     * 添加列表歌曲
+     * @param listSong listSong
+     * @return 1 0
+     */
+    int addListSong(ListSong listSong);
+
+    /**
+     * 返回歌单里指定歌单Id的歌曲
+     *
+     * @param songListId 歌单id的歌曲
+     * @return 实例对象
+     */
+    List<ListSong> queryListSongById(Integer songListId);
 }

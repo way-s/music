@@ -65,4 +65,30 @@ public interface SongListDao {
      */
     int deleteById(Integer id);
 
+    /**
+     * 查询所有歌单
+     * @return 所有歌曲
+     */
+    List<SongList> allSongList();
+
+    /**
+     * 查询旧歌曲列表图片
+     * @param id 主键
+     * @return picUrl
+     */
+    public String queryOldSongListPic(Integer id);
+
+    /**
+     * 更新歌单图片
+     * @param songList songList
+     * @return 1 0
+     */
+    public int updateSongListImg(SongList songList);
+
+    /**
+     * 查询旧图片地址
+     * @param id id
+     * @return string
+     */
+    public String queryOldPic(Integer id);
 }

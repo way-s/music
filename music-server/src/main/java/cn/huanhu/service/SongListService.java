@@ -45,9 +45,8 @@ public class SongListService {
      * @param songList 实例对象
      * @return 实例对象
      */
-    public SongList insert(SongList songList) {
-        this.songListDao.insert(songList);
-        return songList;
+    public boolean insert(SongList songList) {
+        return this.songListDao.insert(songList)>0;
     }
 
     /**
@@ -56,9 +55,8 @@ public class SongListService {
      * @param songList 实例对象
      * @return 实例对象
      */
-    public SongList update(SongList songList) {
-        this.songListDao.update(songList);
-        return this.queryById(songList.getId());
+    public Boolean update(SongList songList) {
+        return this.songListDao.update(songList)>0;
     }
 
     /**
@@ -69,5 +67,40 @@ public class SongListService {
      */
     public boolean deleteById(Integer id) {
         return this.songListDao.deleteById(id) > 0;
+    }
+
+    /**
+     * 查询所有歌单
+     * @return 所有歌单
+     */
+    public List<SongList> allSongList() {
+        return this.songListDao.allSongList();
+    }
+
+    /**
+     * 查询旧歌曲列表图片
+     * @param id 主键
+     * @return picUrl
+     */
+    public String queryOldSongListPic(Integer id){
+        return this.songListDao.queryOldSongListPic(id);
+    }
+
+    /**
+     * 更新歌单图片
+     * @param songList songList
+     * @return 1 0
+     */
+    public boolean updateSongListImg(SongList songList) {
+        return this.songListDao.updateSongListImg(songList) > 0;
+    }
+
+    /**
+     * 查询旧图片地址
+     * @param id id
+     * @return string
+     */
+    public String queryOldPic(Integer id){
+        return this.songListDao.queryOldPic(id);
     }
 }

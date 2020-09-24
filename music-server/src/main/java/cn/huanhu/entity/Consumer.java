@@ -2,10 +2,7 @@ package cn.huanhu.entity;
 
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -24,6 +21,7 @@ public class Consumer implements Serializable {
 
     @Id
     @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
     /**
@@ -42,7 +40,7 @@ public class Consumer implements Serializable {
      * 性别（1男0女）
      */
     @Column(name = "sex")
-    private Boolean sex;
+    private Byte sex;
 
     /**
      * 电话
@@ -116,11 +114,11 @@ public class Consumer implements Serializable {
         this.password = password;
     }
 
-    public Boolean getSex() {
+    public Byte getSex() {
         return sex;
     }
 
-    public void setSex(Boolean sex) {
+    public void setSex(Byte sex) {
         this.sex = sex;
     }
 
@@ -188,4 +186,21 @@ public class Consumer implements Serializable {
         this.updateTime = updateTime;
     }
 
+    @Override
+    public String toString() {
+        return "Consumer{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", sex=" + sex +
+                ", phoneNum='" + phoneNum + '\'' +
+                ", email='" + email + '\'' +
+                ", birth=" + birth +
+                ", introduction='" + introduction + '\'' +
+                ", location='" + location + '\'' +
+                ", avator='" + avator + '\'' +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                '}';
+    }
 }

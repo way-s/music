@@ -85,4 +85,13 @@ public class SingerService {
     public List<Singer> queryBySex(Integer sex){
         return singerDao.queryBySex(sex);
     }
+
+    /**
+     * 查询旧图片地址
+     * @param id id
+     * @return string
+     */
+    public String queryOldPic(Integer id){
+        return singerDao.queryOldPic(id);
+    }
 }

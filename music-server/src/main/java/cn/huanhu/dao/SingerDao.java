@@ -16,6 +16,7 @@ public interface SingerDao {
 
     /**
      * 增加
+     *
      * @param singer singer
      * @return int
      */
@@ -23,6 +24,7 @@ public interface SingerDao {
 
     /**
      * 修改
+     *
      * @param singer singer
      * @return int
      */
@@ -30,6 +32,7 @@ public interface SingerDao {
 
     /**
      * 删除
+     *
      * @param id primaryKey id
      * @return int
      */
@@ -37,6 +40,7 @@ public interface SingerDao {
 
     /**
      * 根据主键查询整个对象
+     *
      * @param id id
      * @return singer
      */
@@ -44,6 +48,7 @@ public interface SingerDao {
 
     /**
      * 查询所有歌手
+     *
      * @return list
      */
     public List<Singer> allSinger();
@@ -51,6 +56,7 @@ public interface SingerDao {
 
     /**
      * 根据歌手名字模糊查询列表
+     *
      * @param name name
      * @return list singer
      */
@@ -58,8 +64,16 @@ public interface SingerDao {
 
     /**
      * 根据性别查询
+     *
      * @param sex sex
      * @return list singer
      */
     public List<Singer> queryBySex(Integer sex);
+
+    /**
+     * 查询旧图片地址
+     * @param id id
+     * @return string
+     */
+    public String queryOldPic(Integer id);
 }

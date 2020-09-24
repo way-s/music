@@ -33,12 +33,12 @@
     </select>
 
     <!--查询指定行数据-->
-<!--    <select id="queryAllByLimit" resultMap="SongMap">-->
-<!--        select-->
-<!--        id, singer_id, name, introduction, create_time, update_time, pic, lyric, url-->
-<!--        from music.song-->
-<!--        limit #{offset}, #{limit}-->
-<!--    </select>-->
+    <!--    <select id="queryAllByLimit" resultMap="SongMap">-->
+    <!--        select-->
+    <!--        id, singer_id, name, introduction, create_time, update_time, pic, lyric, url-->
+    <!--        from music.song-->
+    <!--        limit #{offset}, #{limit}-->
+    <!--    </select>-->
 
     <!--通过实体作为筛选条件查询-->
     <select id="queryAllSong" resultMap="SongMap">
@@ -77,12 +77,64 @@
     </select>
 
     <!--新增所有列-->
-    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into music.song(singer_id, name, introduction, create_time, update_time, pic, lyric, url)
-        values (#{singerId}, #{name}, #{introduction}, #{createTime}, #{updateTime}, #{pic}, #{lyric}, #{url})
+    <insert id="insert" parameterType="cn.huanhu.entity.Song">
+        <!--insert into music.song(singer_id, name, introduction, create_time, update_time, pic, lyric, url)
+        values (#{singerId}, #{name}, #{introduction}, #{createTime}, #{updateTime}, #{pic}, #{lyric}, #{url})-->
+        insert into music.song
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="singerId != null">
+                singer_id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="introduction != null">
+                introduction,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="pic != null">
+                pic,
+            </if>
+            <if test="lyric != null">
+                lyric,
+            </if>
+            <if test="url != null">
+                url,
+            </if>
+        </trim>
+        <trim prefix="values(" suffix=")" suffixOverrides=",">
+            <if test="singerId != null">
+                #{singerId},
+            </if>
+            <if test="name != null">
+                #{name},
+            </if>
+            <if test="introduction != null">
+                #{introduction},
+            </if>
+            <if test="createTime != null">
+                #{createTime},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime},
+            </if>
+            <if test="pic != null">
+                #{pic},
+            </if>
+            <if test="lyric != null">
+                #{lyric},
+            </if>
+            <if test="url != null">
+                #{url},
+            </if>
+        </trim>
     </insert>
 
-    <!--通过主键修改数据-->
     <update id="update">
         update music.song
         <set>
@@ -117,16 +169,19 @@
     <!--通过主键删除-->
     <delete id="deleteById">
         delete from music.song
-        where id = #{id}
+        where id = #{id} and singer_id = #{singerId}
     </delete>
 
-    <!--查询单个-->
-    <select id="queryByPrimaryKey" parameterType="java.lang.Integer" resultMap="SongMap">
-        select
-        <include refid="song_list"/>
-        from music.song
+    <!--根据id 更新歌曲图片-->
+    <update id="updateSongPic" parameterType="cn.huanhu.entity.Song">
+        update music.song
+        <set >
+            <if test="pic != null" >
+                pic = #{pic},
+            </if>
+        </set>
         where id = #{id}
-    </select>
+    </update>
 
     <!--查询所有歌曲-->
     <select id="allSong" resultMap="SongMap">
@@ -146,8 +201,22 @@
     <!--根据歌手id查询-->
     <select id="queryBySingerId" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer">
         select
-        <include refid="Blob_Column_List"/>
+        <include refid="song_list"/>
         from music.song
         where singer_id = #{singerId}
+    </select>
+
+    <!--查询旧图片地址-->
+    <select id="queryOldPic" resultType="java.lang.String" parameterType="java.lang.Integer">
+        select pic
+        from music.song
+        where id = #{id}
+    </select>
+
+    <!--查询旧歌曲地址-->
+    <select id="queryOldUrl" resultType="java.lang.String" parameterType="java.lang.Integer">
+        select url
+        from music.song
+        where id = #{id}
     </select>
 </mapper>

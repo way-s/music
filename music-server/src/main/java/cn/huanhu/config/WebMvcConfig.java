@@ -15,41 +15,48 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class WebMvcConfig implements WebMvcConfigurer {
 
     /**
+     * 指定到D盘下的myFile文件夹
+     * 注:如果是Linux的话，直接指定文件夹路径即可，不需要指定哪个盘(Linux就一个可用盘)
+     * registry.addResourceHandler("/img/songPic/**").addResourceLocations("file:D:/img/singerPic/");
+     * WebMvcConfigurer.super.addResourceHandlers(registry);
+     *
+     * 可以直接使用addResourceLocations 指定磁盘绝对路径，同样可以配置多个位置，注意路径写法需要加上file:
+     *  registry.addResourceHandler("/myimgs/**").addResourceLocations("file:H:/myimgs/");
+     *
+     *
      *  手动配置图片资源文件夹的位置
      * @param registry
      */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        // 指定到D盘下的myFile文件夹
-        // 注:如果是Linux的话，直接指定文件夹路径即可，不需要指定哪个盘(Linux就一个可用盘)
-//        registry.addResourceHandler("/img/songPic/**").addResourceLocations("D:/IDEA/project/testspring/music/img/singerPic/");
-//        WebMvcConfigurer.super.addResourceHandlers(registry);
 
-        // 歌手图片文件夹 D:\IDEA\project\testspring\music\img\singerPic
-        registry.addResourceHandler("/img/singerPic/**").addResourceLocations(
-                "file:"+System.getProperty("user.dir")+System.getProperty("file.separator")+"img"
-                        +System.getProperty("file.separator")+"singerPic"+System.getProperty("file.separator")
-        );
+        // 歌手图片 资源路径
+        registry.addResourceHandler("/singerPic/**").addResourceLocations("file:E:/music/img/singerPic/");
         // 歌曲图片文件夹
-        registry.addResourceHandler("/img/songPic/**").addResourceLocations(
-                "file:"+System.getProperty("user.dir")+System.getProperty("file.separator")+"img"
-                        +System.getProperty("file.separator")+"singerPic"+System.getProperty("file.separator")
-        );
-        // 歌曲头像文件夹
-        registry.addResourceHandler("/img/songPic/**").addResourceLocations(
-                "file:"+System.getProperty("user.dir")+System.getProperty("file.separator")+"img"
-                        +System.getProperty("file.separator")+"singerPic"+System.getProperty("file.separator")
-        );
+        registry.addResourceHandler("/songPic/**").addResourceLocations("file:E:/music/img/songPic/");
+        // 歌单图片文件夹
+        registry.addResourceHandler("/songListPic/**").addResourceLocations("file:E:/music/img/songListPic/");
         // 歌曲地址文件夹
-        registry.addResourceHandler("/img/songPic/**").addResourceLocations(
-                "file:"+System.getProperty("user.dir")+System.getProperty("file.separator")+"img"
-                        +System.getProperty("file.separator")+"singerPic"+System.getProperty("file.separator")
-        );
+        registry.addResourceHandler("/songAd/**").addResourceLocations("file:E:/music/img/songAd/");
+        // 用户头像
+        registry.addResourceHandler("/CHP/**").addResourceLocations("file:E:/music/img/CHP/");
+
+//        // 歌手图片文件夹
+//        registry.addResourceHandler("/music/img/singerPic/**").addResourceLocations(
+//                "file:" + System.getProperty("user.dir") + System.getProperty("file.separator") + "music/img"
+//                        + System.getProperty("file.separator") + "singerPic" + System.getProperty("file.separator")
+//        );
+
+//        // 歌曲图片文件夹
+//        registry.addResourceHandler("/img/songPic/**").addResourceLocations(
+//                "file:"+System.getProperty("user.dir")+System.getProperty("file.separator")+"img"
+//                        +System.getProperty("file.separator")+"singerPic"+System.getProperty("file.separator")
+//        );
     }
 
     /**
      * 添加Cors映射 解决跨域
-     * @param registry
+     * @param registry 注册表
      */
     @Override
     public void addCorsMappings(CorsRegistry registry) {

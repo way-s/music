@@ -62,6 +62,22 @@
         </where>
     </select>
 
+    <!--获得指定歌单ID的评论列表-->
+    <select id="queryBySongListId" resultMap="CommentMap">
+        select
+        id, user_id, song_id, song_list_id, content, create_time, type, up
+        from music.comment
+        where song_list_id = #{songListId}
+    </select>
+
+    <!--获得指定歌曲ID的评论列表-->
+    <select id="queryBySongId" resultMap="CommentMap">
+        select
+        id, user_id, song_id, song_list_id, content, create_time, type, up
+        from music.comment
+        where song_id = #{songId}
+    </select>
+
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
         insert into music.comment(user_id, song_id, song_list_id, content, create_time, type, up)
@@ -99,7 +115,8 @@
 
     <!--通过主键删除-->
     <delete id="deleteById">
-        delete from music.comment where id = #{id}
+        delete from music.comment
+        where id = #{id}
     </delete>
 
 </mapper>

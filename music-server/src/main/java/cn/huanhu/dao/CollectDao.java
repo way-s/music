@@ -24,13 +24,12 @@ public interface CollectDao {
     Collect queryById(Integer id);
 
     /**
-     * 查询指定行数据
+     * 返回的指定用户ID收藏列表
      *
-     * @param offset 查询起始位置
-     * @param limit  查询条数
+     * @param userId 用户id
      * @return 对象列表
      */
-    List<Collect> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit);
+    List<Collect> queryByUserId(@Param("userId") Integer userId);
 
 
     /**
@@ -65,4 +64,18 @@ public interface CollectDao {
      */
     int deleteById(Integer id);
 
+    /**
+     * 根据用户id 和 歌曲id 删除歌单
+     * @param userId 用户id
+     * @param songId 歌曲id
+     * @return 1 0
+     */
+    int deleteCollect(@Param("userId")Integer userId,@Param("songId")Integer songId);
+
+    /**
+     * 返回所有的实体作
+     *
+     * @return 对象列表
+     */
+    List<Collect> queryAllCollect();
 }

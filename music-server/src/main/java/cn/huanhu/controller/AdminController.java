@@ -16,8 +16,8 @@ import javax.servlet.http.HttpSession;
 
 /**
  * @author m
- * @className LoginController
- * @description LoginController
+ * @className AdminController
+ * @description 管理员API
  * @date 2020/9/5
  */
 @Controller

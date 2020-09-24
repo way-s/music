@@ -50,6 +50,13 @@
         </where>
     </select>
 
+    <!--查询所有歌单-->
+    <select id="allSongList" resultMap="SongListMap">
+        select
+        id, title, pic, introduction, style
+        from music.song_list
+    </select>
+
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
         insert into music.song_list(title, pic, introduction, style)
@@ -78,7 +85,32 @@
 
     <!--通过主键删除-->
     <delete id="deleteById">
-        delete from music.song_list where id = #{id}
+        delete from music.song_list
+        where id = #{id}
     </delete>
 
+    <!--查询旧歌单图片地址-->
+    <select id="queryOldSongListPic" resultType="java.lang.String" parameterType="java.lang.Integer">
+        select pic
+        from music.song_list
+        where id = #{id}
+    </select>
+
+    <!--更新歌单图片-->
+    <update id="updateSongListImg" parameterType="java.lang.Integer" >
+        update song_list
+        <set >
+            <if test="pic != null" >
+                pic = #{pic},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--查询旧歌曲地址-->
+    <select id="queryOldPic" resultType="java.lang.String" parameterType="java.lang.Integer">
+        select pic
+        from music.song_list
+        where id = #{id}
+    </select>
 </mapper>
