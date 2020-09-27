@@ -84,4 +84,12 @@ public interface ConsumerDao {
      * @return string
      */
     public String queryOldPic(Integer id);
+
+    /**
+     * 手机密码验证
+     * @param phoneNum 手机号
+     * @param password 密码
+     * @return consumer 实体
+     */
+    public List<Consumer> verityPhoneNum(@Param("phoneNum") Integer phoneNum,@Param("password") Integer password);
 }

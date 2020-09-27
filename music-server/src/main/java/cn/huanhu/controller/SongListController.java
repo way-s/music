@@ -36,7 +36,7 @@ public class SongListController {
      * @return json
      */
     @ResponseBody
-    @RequestMapping("add")
+    @RequestMapping(value = "add",method = RequestMethod.GET)
     public Object addSongList(HttpServletRequest request) {
         JSONObject json = new JSONObject();
         String title = request.getParameter("title").trim();
@@ -71,6 +71,7 @@ public class SongListController {
     @ResponseBody
     @RequestMapping(value = "all", method = RequestMethod.GET)
     public Object allSongList() {
+        log.info("songList/all->");
         return songListService.allSongList();
     }
 
@@ -185,4 +186,30 @@ public class SongListController {
             return json;
         }
     }
+
+    /**
+     * 返回指定类型的歌单
+     * @param request request
+     * @return json
+     */
+    @ResponseBody
+    @RequestMapping(value = "style/detail", method = RequestMethod.GET)
+    public Object songListOfStyle(HttpServletRequest request){
+        String style = request.getParameter("style").trim();
+        log.info("style->"+style);
+        return songListService.likeStyle('%'+ style + '%');
+    }
+
+    /**
+     * 返回标题包含文字的歌单
+     * @param request request
+     * @return json
+     */
+    @RequestMapping(value = "likeTitle/detail", method = RequestMethod.GET)
+    public Object songListOfLikeTitle(HttpServletRequest request){
+        String title = request.getParameter("title").trim();
+        return songListService.likeTitle('%'+ title + '%');
+    }
+
+
 }

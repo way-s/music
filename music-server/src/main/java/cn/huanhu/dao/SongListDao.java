@@ -91,4 +91,18 @@ public interface SongListDao {
      * @return string
      */
     public String queryOldPic(Integer id);
+
+    /**
+     * 返回指定类型的歌单
+     * @param style 类型
+     * @return songList 实体
+     */
+    public List<SongList> likeStyle(String style);
+
+    /**
+     * 返回标题包含文字的歌单
+     * @param title 标题
+     * @return songList 实体
+     */
+    public List<SongList> likeTitle(String title);
 }

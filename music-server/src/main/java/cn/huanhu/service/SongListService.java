@@ -103,4 +103,24 @@ public class SongListService {
     public String queryOldPic(Integer id){
         return this.songListDao.queryOldPic(id);
     }
+
+    /**
+     * 返回指定类型的歌单
+     * @param style 类型
+     * @return songList 实体
+     */
+    public List<SongList> likeStyle(String style)
+    {
+        return this.songListDao.likeStyle(style);
+    }
+
+    /**
+     * 返回标题包含文字的歌单
+     * @param title 标题
+     * @return songList 实体
+     */
+    public List<SongList> likeTitle(String title)
+    {
+        return this.songListDao.likeTitle(title);
+    }
 }

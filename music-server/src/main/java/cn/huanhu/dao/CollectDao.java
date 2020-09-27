@@ -78,4 +78,19 @@ public interface CollectDao {
      * @return 对象列表
      */
     List<Collect> queryAllCollect();
+
+    /**
+     * 歌曲是否已经收藏
+     * @param userId 用户id
+     * @param songId 歌曲id
+     * @return 1 0
+     */
+    int existSongId(@Param("userId") Integer userId,@Param("songId") Integer songId);
+
+    /**
+     * 添加收藏
+     * @param collect collect
+     * @return 1 0
+     */
+    int addCollection(Collect collect);
 }

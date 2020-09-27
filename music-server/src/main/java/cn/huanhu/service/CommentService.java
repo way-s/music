@@ -90,5 +90,12 @@ public class CommentService {
         return this.commentDao.queryBySongId(songId);
     }
 
-
+    /**
+     * 添加评论
+     * @param comment comment
+     * @return 1 0
+     */
+    public boolean addComment(Comment comment) {
+        return commentDao.insert(comment) > 0;
+    }
 }

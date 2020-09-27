@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author m
@@ -88,8 +89,8 @@ public class ConsumerController {
         consumer.setLocation(location);
         consumer.setBirth(myBirth);
         consumer.setIntroduction(introduction);
-        consumer.setAvator(avator);
-        consumer.setPhoneNum(password);
+//        consumer.setAvator(avator);
+        consumer.setAvator("/CHP/yin.png");
         consumer.setCreateTime(new Date());
         consumer.setUpdateTime(new Date());
         log.info(consumer.toString());
@@ -104,6 +105,7 @@ public class ConsumerController {
                 json.put("msg", "注册失败");
             }
         } catch (Exception e) {
+            log.info("error->" + e.getMessage());
             json.put("code", 0);
             json.put("msg", "已经注册过了不可以重复注册！");
         }
@@ -112,7 +114,7 @@ public class ConsumerController {
 
 
     /**
-     * 判断是否登录成功
+     * 判断是否登录成功 v-1
      *
      * @param request request
      * @param session session
@@ -126,12 +128,42 @@ public class ConsumerController {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         boolean res = consumerService.verityPassword(username, password);
-
+        log.info("username->" + username + "\t" + "password->" + password);
         if (res) {
             json.put("code", 1);
             json.put("msg", "登录成功");
             json.put("userMsg", consumerService.queryByName(username));
             session.setAttribute("username", username);
+            session.setMaxInactiveInterval(3 * 60);
+        } else {
+            json.put("code", 0);
+            json.put("msg", "用户名或密码错误");
+        }
+        return json;
+    }
+
+    /**
+     * 判断是否登录成功 v-2
+     *
+     * @param request request
+     * @param session session
+     * @return json
+     */
+    @ResponseBody
+    @RequestMapping(value = "login/check", method = RequestMethod.POST)
+    public Object loginStatusV2(HttpServletRequest request, HttpSession session) {
+
+        JSONObject json = new JSONObject();
+        String phoneNum = request.getParameter("phoneNum");
+        String password = request.getParameter("password");
+        List<Consumer> result = consumerService.verityPhoneNum(Integer.parseInt(phoneNum), Integer.parseInt(password));
+        log.info("phoneNum->" + phoneNum + "\t" + "password->" + password);
+        if (!result.isEmpty()) {
+            json.put("code", 1);
+            json.put("msg", "登录成功");
+            json.put("userMsg", request.toString());
+            session.setAttribute("username", phoneNum);
+//            session.setMaxInactiveInterval(3*60);
         } else {
             json.put("code", 0);
             json.put("msg", "用户名或密码错误");
@@ -155,7 +187,7 @@ public class ConsumerController {
      * @return json
      */
     @ResponseBody
-    @RequestMapping(value = "detail", method = RequestMethod.GET)
+    @RequestMapping(value = "detail", method = RequestMethod.POST)
     public Object userOfId(HttpServletRequest request) {
         String id = request.getParameter("id");
         return consumerService.queryById(Integer.parseInt(id));
@@ -262,7 +294,7 @@ public class ConsumerController {
         // 实际的文件地址
         File dest = new File(filePath + fileName);
         // 存储到数据库中的相对文件地址
-        String storeUrlPath = "/CHP/" + id+"/"+ fileName;
+        String storeUrlPath = "/CHP/" + id + "/" + fileName;
 
         try {
             upFile.transferTo(dest);
@@ -275,9 +307,13 @@ public class ConsumerController {
             log.info("song/img/update->" + "\n" + "filename->" + fileName + "\n" + "filePath->" + filePath + "\n" + "dest->"
                     + dest + "\n" + "storeUrlPath->" + storeUrlPath + "\n" + "oldPic->" + oldPic + "\t" + fileAddr + oldPic);
             File oldFile = new File(fileAddr + oldPic);
-            //删除旧图片
-            if (oldFile.exists()) {
-                oldFile.delete();
+            // 固定图片路径
+            String fixedPic = "/CHP/yin.png";
+            if (!fixedPic.equals(oldPic)) {
+                //删除旧图片
+                if (oldFile.exists()) {
+                    oldFile.delete();
+                }
             }
 
             // 更新用户头像

@@ -44,10 +44,12 @@ public interface AdminDao {
     /**
      * 新增数据
      *
-     * @param admin 实例对象
+     * @param name name
+     * @param password password
      * @return 影响行数
      */
-    int insert(Admin admin);
+    int insert(@Param("name")String name , @Param("password")String password);
+
 
     /**
      * 修改数据
@@ -73,5 +75,13 @@ public interface AdminDao {
      * @return true false
      */
     boolean checkPassWord(@Param("userName") String userName,@Param("passWord") String passWord);
+
+    /**
+     * 查询是否存在
+     *
+     * @param name 昵称
+     * @return 对象列表
+     */
+    boolean queryByName(String name);
 
 }

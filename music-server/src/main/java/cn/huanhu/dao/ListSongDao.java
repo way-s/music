@@ -76,4 +76,11 @@ public interface ListSongDao {
      * @return 实例对象
      */
     List<ListSong> queryListSongById(Integer songListId);
+
+    /**
+     * 返回歌单里指定歌单ID的歌曲
+     * @param songListId 歌单id
+     * @return listSong 实体
+     */
+    public List<ListSong> listSongOfSongId(Integer songListId);
 }

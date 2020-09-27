@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -94,5 +95,18 @@ public class ListSongController {
         log.info("listSong/delete->" + songId + "id->" + id);
 //        return listSongService.deleteById(Integer.parseInt(songId));
         return null;
+    }
+
+    /**
+     * 返回歌单里指定歌单ID的歌曲
+     * @param request    request
+     * @param songListId 歌单id
+     * @return json
+     */
+    @ResponseBody
+    @RequestMapping(value = "detail/{songListId}", method = RequestMethod.GET)
+    public Object listSongOfSongId(HttpServletRequest request, @PathVariable("songListId") Integer songListId) {
+        log.info("listSong/detail/songListId->" + songListId);
+        return listSongService.listSongOfSongId(songListId);
     }
 }

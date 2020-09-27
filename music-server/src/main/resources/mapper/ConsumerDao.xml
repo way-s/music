@@ -30,7 +30,7 @@
         select
         id, username, password, sex, phone_num, email, birth, introduction, location, avator, create_time, update_time
         from music.consumer
-        where name = #{name}
+        where username = #{username}
     </select>
 
     <!--通过实体作为筛选条件查询-->
@@ -84,7 +84,7 @@
             #{avator}, #{createTime}, #{updateTime})-->
 
     <!--新增所有列-->
-    <insert id="insert"  parameterType="cn.huanhu.entity.Consumer" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+    <insert id="insert"  parameterType="cn.huanhu.entity.Consumer" >
         insert into music.consumer
         <trim prefix="(" suffix=")" suffixOverrides="," >
             <if test="username != null and username != ''">
@@ -223,5 +223,13 @@
         select avator
         from music.consumer
         where id = #{id}
+    </select>
+
+    <!--手机密码验证-->
+    <select id="verityPhoneNum" resultMap="ConsumerMap">
+        select
+        id, username, password, sex, phone_num, email, birth, introduction, location, avator, create_time, update_time
+        from music.consumer
+        where phone_num = #{phoneNum} and password = #{password}
     </select>
 </mapper>

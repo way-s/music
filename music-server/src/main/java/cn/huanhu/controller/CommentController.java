@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 
 /**
  * @author m
@@ -103,9 +104,76 @@ public class CommentController {
      * @param request request
      * @return json
      */
+    @ResponseBody
     @RequestMapping(value = "song/detail", method = RequestMethod.GET)
     public Object commentOfSongId(HttpServletRequest request){
         String songId = request.getParameter("songId");
         return commentService.commentOfSongId(Integer.parseInt(songId));
     }
+
+    /**
+     * 提交评论
+     * @param request request
+     * @return json
+     */
+    @ResponseBody
+    @RequestMapping(value = "add", method = RequestMethod.POST)
+    public Object addComment(HttpServletRequest request){
+
+        JSONObject jsonObject = new JSONObject();
+        String userId = request.getParameter("userId");
+        String type = request.getParameter("type");
+        String songListId=request.getParameter("songListId");
+        String songId=request.getParameter("songId");
+        String content = request.getParameter("content").trim();
+
+        Comment comment = new Comment();
+        comment.setUserId(Integer.parseInt(userId));
+        comment.setType(new Byte(type));
+        if (new Byte(type) == 0) {
+            comment.setSongId(Integer.parseInt(songId));
+        } else if (new Byte(type) == 1) {
+            comment.setSongListId(Integer.parseInt(songListId));
+        }
+        comment.setContent(content);
+        comment.setCreateTime(new Date());
+        boolean res = commentService.addComment(comment);
+        if (res){
+            jsonObject.put("code", 1);
+            jsonObject.put("msg", "评论成功");
+            return jsonObject;
+        }else {
+            jsonObject.put("code", 0);
+            jsonObject.put("msg", "评论失败");
+            return jsonObject;
+        }
+    }
+
+    /**
+     * 点赞
+     * @param request request
+     * @return json
+     */
+    @ResponseBody
+    @RequestMapping(value = "like", method = RequestMethod.POST)
+    public Object commentOfLike(HttpServletRequest request){
+
+        JSONObject json = new JSONObject();
+        String id = request.getParameter("id").trim();
+        String up = request.getParameter("up").trim();
+
+        Comment comment = new Comment();
+        comment.setId(Integer.parseInt(id));
+        comment.setUp(Integer.parseInt(up));
+        boolean res = commentService.update(comment);
+        if (res){
+            json.put("code", 1);
+            json.put("msg", "点赞成功");
+        }else {
+            json.put("code", 0);
+            json.put("msg", "点赞失败");
+        }
+        return json;
+    }
+
 }

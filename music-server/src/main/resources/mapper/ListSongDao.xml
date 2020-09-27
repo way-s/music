@@ -102,4 +102,12 @@
             </if>
         </trim>
     </insert>
+
+    <!--返回歌单里指定歌单ID的歌曲-->
+    <select id="listSongOfSongId" resultMap="ListSongMap" parameterType="java.lang.Integer">
+        select
+        id, song_id, song_list_id
+        from music.list_song
+        where song_list_id = #{songListId}
+    </select>
 </mapper>

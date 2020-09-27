@@ -5,7 +5,6 @@ import cn.huanhu.entity.Rank;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * @author m
@@ -29,16 +28,6 @@ public class RankService{
         return this.rankDao.queryById(id);
     }
 
-    /**
-     * 查询多条数据
-     *
-     * @param offset 查询起始位置
-     * @param limit  查询条数
-     * @return 对象列表
-     */
-    public List<Rank> queryAllByLimit(int offset, int limit) {
-        return this.rankDao.queryAllByLimit(offset, limit);
-    }
 
     /**
      * 新增数据
@@ -51,16 +40,6 @@ public class RankService{
         return rank;
     }
 
-    /**
-     * 修改数据
-     *
-     * @param rank 实例对象
-     * @return 实例对象
-     */
-//    public Rank update(Rank rank) {
-//        this.rankDao.update(rank);
-//        return this.queryById((Integer) rank.getId());
-//    }
 
     /**
      * 通过主键删除数据
@@ -70,5 +49,24 @@ public class RankService{
      */
     public boolean deleteById(Integer id) {
         return this.rankDao.deleteById(id) > 0;
+    }
+
+    /**
+     * 提交评分
+     * @param rank rank
+     * @return json
+     */
+    public boolean addRank(Rank rank) {
+        return this.rankDao.addRank(rank) > 0;
+    }
+
+    /**
+     * 获取指定歌单的评分
+     * @param songListId 歌单id
+     * @return 1 0
+     */
+    public int rankOfSongListId(Long songListId) {
+        // 分数总和 / 评分人数
+        return rankDao.selectScoreSum(songListId) / rankDao.selectRankNum(songListId);
     }
 }

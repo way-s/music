@@ -86,4 +86,14 @@ public class ListSongService {
     public List<ListSong> queryListSongById(Integer songListId){
         return listSongDao.queryListSongById(songListId);
     }
+
+    /**
+     * 返回歌单里指定歌单ID的歌曲
+     * @param songListId 歌单id
+     * @return listSong 实体
+     */
+    public List<ListSong> listSongOfSongId(Integer songListId)
+    {
+        return listSongDao.listSongOfSongId(songListId);
+    }
 }

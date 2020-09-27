@@ -25,11 +25,35 @@ public class AdminService {
         return adminDao.queryById(id);
     }
 
+    /**
+     * 密码效验
+     * @param userName 昵称
+     * @param passWord 密码
+     * @return 1 0
+     */
     public boolean checkPassWord(String userName,String passWord){
-//        return adminDao.checkPassWord(name,passWord)>0?true:false;
-//        log.info("UserName + passWord ="+userName+"\t"+passWord);
         return adminDao.checkPassWord(userName, passWord);
     }
 
+    /**
+     * 查询是否存在
+     *
+     * @param name 昵称
+     * @return 1 0
+     */
+    public boolean queryByName(String name){
+        return adminDao.queryByName(name);
+    }
+
+    /**
+     * 注册
+     *
+     * @param name 昵称
+     * @param password 密码
+     * @return 1 0
+     */
+    public boolean insert(String name,String password){
+        return adminDao.insert(name,password) > 0;
+    }
 
 }

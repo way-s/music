@@ -97,10 +97,10 @@
     </select>
 
     <!--更新歌单图片-->
-    <update id="updateSongListImg" parameterType="java.lang.Integer" >
+    <update id="updateSongListImg" parameterType="java.lang.Integer">
         update song_list
-        <set >
-            <if test="pic != null" >
+        <set>
+            <if test="pic != null">
                 pic = #{pic},
             </if>
         </set>
@@ -112,5 +112,21 @@
         select pic
         from music.song_list
         where id = #{id}
+    </select>
+
+    <!--返回指定类型的歌单-->
+    <select id="likeStyle" resultMap="SongListMap">
+    select
+    id, title, pic, introduction, style
+    from music.song_list
+    where style like #{style}
+    </select>
+
+    <!--返回标题包含文字的歌单-->
+    <select id="likeTitle" resultMap="SongListMap">
+    select
+    id, title, pic, introduction, style
+    from music.song_list
+    where style like #{title}
     </select>
 </mapper>

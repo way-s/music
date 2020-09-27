@@ -94,4 +94,15 @@ public class ConsumerService{
     public String queryOldPic(Integer id){
         return consumerDao.queryOldPic(id);
     }
+
+    /**
+     * 手机密码验证
+     * @param phoneNum 手机号
+     * @param password 密码
+     * @return consumer 实体
+     */
+    public List<Consumer> verityPhoneNum(Integer phoneNum,Integer password){
+        return consumerDao.verityPhoneNum(phoneNum,password);
+    }
+
 }

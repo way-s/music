@@ -42,13 +42,13 @@ public class Collect implements Serializable {
      * 歌曲id
      */
     @Column(name = "song_id")
-    private Long songId;
+    private Integer songId;
 
     /**
      * 歌单id
      */
     @Column(name = "song_list_id")
-    private Long songListId;
+    private Integer songListId;
 
     /**
      * 收藏时间
@@ -80,19 +80,19 @@ public class Collect implements Serializable {
         this.type = type;
     }
 
-    public Long getSongId() {
+    public Integer getSongId() {
         return songId;
     }
 
-    public void setSongId(Long songId) {
+    public void setSongId(Integer songId) {
         this.songId = songId;
     }
 
-    public Long getSongListId() {
+    public Integer getSongListId() {
         return songListId;
     }
 
-    public void setSongListId(Long songListId) {
+    public void setSongListId(Integer songListId) {
         this.songListId = songListId;
     }
 

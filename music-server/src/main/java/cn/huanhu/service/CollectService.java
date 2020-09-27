@@ -89,4 +89,23 @@ public class CollectService {
     public List<Collect> queryAllCollect(){
         return this.collectDao.queryAllCollect();
     }
+
+    /**
+     * 歌曲是否已经收藏
+     * @param userId 用户id
+     * @param songId 歌曲id
+     * @return 1 0
+     */
+    public boolean existSongId(Integer userId, Integer songId) {
+        return this.collectDao.existSongId(userId, songId) > 0;
+    }
+
+    /**
+     * 添加收藏
+     * @param collect collect
+     * @return 1 0
+     */
+    public boolean addCollection(Collect collect) {
+        return collectDao.addCollection(collect) > 0 ;
+    }
 }

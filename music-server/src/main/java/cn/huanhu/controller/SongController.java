@@ -158,7 +158,7 @@ public class SongController {
     @RequestMapping(value = "singerName/detail", method = RequestMethod.GET)
     public Object songOfSingerName(HttpServletRequest request) {
         String name = request.getParameter("name");
-        log.info("song/singerNAme/detail->name"+name);
+        log.info("song/singerName/detail->name->"+name);
         return songService.songListOfName('%' + name + '%');
     }
 
