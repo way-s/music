@@ -9,6 +9,8 @@ MAINTAINER huanhu
 WORKDIR /ROOT
 #添加打包出来的jar包到容器里面
 ADD /ROOT/*.jar *.jar
+#ADD *.jar huanhu/docker.jar /ROOT/*.jar /ROOT/
 EXPOSE 8000
 #编译镜像时运行的脚本，这里是授权并运行脚本
+#RUN bash -c 'touch /huanhu/docker.jar'
 ENTRYPOINT [ "java", "-jar", "*.jar" ]
